@@ -11,20 +11,28 @@ env:
 
 jobs:
   check:
-    name: fmt / build / test
+    name: fmt / clippy / doc / build / test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - uses: dtolnay/rust-toolchain@stable
         with:
-          components: rustfmt
+          components: rustfmt, clippy
 
       - name: Format check
         run: cargo fmt --check
 
+      - name: Clippy
+        run: cargo clippy --all-targets --all-features -- -D warnings
+
+      - name: Doc
+        env:
+          RUSTDOCFLAGS: "-D warnings"
+        run: cargo doc --no-deps
+
       - name: Build
-        run: cargo build --release
+        run: cargo build --locked --release
 
       - name: Test
-        run: cargo test
+        run: cargo test --locked

@@ -39,7 +39,7 @@ jobs:
           targets: ${{ matrix.target }}
 
       - name: Build cdylib
-        run: cargo build --release --target ${{ matrix.target }}
+        run: cargo build --locked --release --target ${{ matrix.target }}
 
       - name: Stage artifact
         shell: bash

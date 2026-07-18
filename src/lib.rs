@@ -18,6 +18,7 @@
 //!   the basename; case-sensitive, then case-insensitive, then fuzzy.
 //!
 //! Ported from the fasd shell script (`bin/fasd`); `// c:NNN` cites its lines.
+#![allow(clippy::not_unsafe_ptr_arg_deref)]
 
 use std::os::raw::c_int;
 use std::sync::atomic::{AtomicBool, Ordering};
