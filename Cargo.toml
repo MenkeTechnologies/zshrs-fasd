@@ -1,0 +1,14 @@
+[package]
+name = "fasd"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "fasd file+directory frecency ported to a native zshrs plugin"
+
+[lib]
+name = "fasd"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+znative = "0.12"
+regex = "1"
