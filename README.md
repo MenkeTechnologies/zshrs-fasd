@@ -79,8 +79,31 @@ d <partial-dir>
 | `j [q…]`       | directories        | `cd` to the best match                   |
 | `v [q…]`       | files              | open best match in `$EDITOR` (vim)       |
 | `fasd [q…]`    | files + dirs       | the underlying command                   |
+| `fasd_cd [q…]` | directories        | `cd` to the match — what `j` calls       |
 
-Flags mirror fasd: `-a`/`-d`/`-f` kind, `-s` scores, `-l` list, `-r` rank / `-t` recency ordering, `-R` reverse, `-e <cmd>` execute on the result, `-N` select the Nth entry, `-A`/`-D` add/delete.
+Flags mirror fasd: `-a`/`-d`/`-f` kind, `-s` scores, `-l` list, `-i` interactive select, `-r` rank / `-t` recency ordering, `-R` reverse, `-e <cmd>` execute on the result, `-N` select the Nth entry, `-A`/`-D` add/delete.
+
+`fasd` also takes the sub-commands the shell hook and completion use directly:
+
+| sub-command       | effect                                                     |
+| ----------------- | ---------------------------------------------------------- |
+| `--add PATH…`     | record paths (alias `-A`) — this is what the `preexec` hook calls |
+| `--delete PATH…`  | drop paths from the datafile (alias `-D`)                  |
+| `--proc CMD…`     | feed a command line through the blacklist/shift/ignore filters, then record its path arguments |
+| `--complete Q…`   | emit completion matches for `Q`                            |
+| `--version`       | prints `1.0.1`, the upstream fasd version this reimplements — not the plugin's own crate version |
+
+### Environment
+
+| variable            | default          | effect                                                    |
+| ------------------- | ---------------- | --------------------------------------------------------- |
+| `_FASD_DATA`        | `~/.fasd`        | datafile path                                             |
+| `_FASD_MAX`         | `2000`           | Σrank ceiling; past it every rank ages `* 0.9`            |
+| `_FASD_FUZZY`       | `2`              | chars the fuzzy pass may skip between consecutive query characters; `0` disables it |
+| `_FASD_TRACK_PWD`   | `1`              | set to `0` to stop recording `$PWD` on every command       |
+| `_FASD_BLACKLIST`   | `--help`         | drop the whole command line if any word matches           |
+| `_FASD_SHIFT`       | `sudo busybox`   | leading words to skip before reading the real command     |
+| `_FASD_IGNORE`      | `fasd ls echo`   | commands whose path arguments are never recorded          |
 
 ---
 
