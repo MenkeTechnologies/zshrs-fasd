@@ -23,13 +23,19 @@ jobs:
       - name: Format check
         run: cargo fmt --check
 
+      # `--locked` on the FIRST cargo command, not just on the build. Without it,
+      # clippy resolves dependencies and rewrites Cargo.lock in the workspace, so
+      # a later `--locked` step sees the repaired file and passes — which is how a
+      # release commit whose committed lockfile was a version behind went green
+      # here and then failed the Release workflow, whose first cargo command IS
+      # `--locked`.
       - name: Clippy
-        run: cargo clippy --all-targets --all-features -- -D warnings
+        run: cargo clippy --locked --all-targets --all-features -- -D warnings
 
       - name: Doc
         env:
           RUSTDOCFLAGS: "-D warnings"
-        run: cargo doc --no-deps
+        run: cargo doc --locked --no-deps
 
       - name: Build
         run: cargo build --locked --release
