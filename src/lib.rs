@@ -665,7 +665,7 @@ fn j(host: &Host, args: &Args) -> c_int {
 
 declare_plugin! {
     name: "fasd",
-    version: "0.1.0",
+    version: "0.1.3",
     builtins: {
         "fasd" => fasd,
         "fasd_cd" => fasd_cd,

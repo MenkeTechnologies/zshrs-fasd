@@ -1,6 +1,6 @@
 [plugin]
 name = "fasd"
-version = "0.1.0"
+version = "0.1.3"
 description = "fasd file+directory frecency ported to a native zshrs plugin (fasd/a/s/d/f/j)"
 
 [native]
