@@ -55,7 +55,7 @@ fasd -A path…   → add paths        fasd -D path…  → forget paths
 znative load MenkeTechnologies/zshrs-fasd
 ```
 
-Put that one line in your `.zshrc`. [znative](https://github.com/MenkeTechnologies/zshrs/blob/main/docs/ZNATIVE.md), zshrs's package manager, installs the plugin on the first shell start — clones it, runs `cargo build --release`, and `zmodload -R`s the resulting `libfasd` — then loads it from the store, zero-network, on every start after. Tracking begins on the first command; `f`/`d`/`a`/`j`/`v` search once there is history.
+Put that one line in your `.zshrc`. [znative](https://github.com/MenkeTechnologies/zshrs/blob/main/docs/ZNATIVE.md), zshrs's package manager, installs the plugin on the first shell start — clones it, runs `cargo build --release`, and `zmodload -R`s the resulting `libfasd` — then loads it from the store, zero-network, on every start after. Tracking begins at the first query through `fasd`, `a`, `s`, `d`, `f`, `sd`, `sf`, or `v`, which installs the `preexec` hook; `f`/`d`/`a`/`j`/`v` search once there is history.
 
 ### Manual build
 
